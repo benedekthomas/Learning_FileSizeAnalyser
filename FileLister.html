@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Overview App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="input-container">
+            <input type="text" id="url-input" placeholder="Enter local URL" />
+            <button id="load-btn">Load Files</button>
+        </div>
+        
+        <div id="chart-container">
+            <canvas id="fileChart" width="400" height="400"></canvas>
+        </div>
+        
+        <div id="file-list-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Icon</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Size</th>
+                    </tr>
+                </thead>
+                <tbody id="file-list">
+                    <!-- File list will be dynamically generated -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
