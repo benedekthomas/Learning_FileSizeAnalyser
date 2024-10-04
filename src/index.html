@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File List</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>File List</h1>
+  <ul id="fileList"></ul>
+
+  <h2>File Size Distribution</h2>
+  <canvas id="fileSizeChart" width="400" height="400"></canvas>
+
+  <h2>File Details</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Size (bytes)</th>
+      </tr>
+    </thead>
+    <tbody id="fileTableBody"></tbody>
+  </table>
+
+  <script>
+    // Fetch files from the API and display them
+    fetch('/api/files')
+      .then(response => response.json())
+      .then(files => {
+        const fileList = document.getElementById('fileList');
+        const fileTableBody = document.getElementById('fileTableBody');
+        const fileSizeChartCtx = document.getElementById('fileSizeChart').getContext('2d');
+
+        const fileNames = [];
+        const fileSizes = [];
+        const fileTypes = [];
+
+        files.forEach(file => {
+          // Add to file list
+          const listItem = document.createElement('li');
+          listItem.textContent = `${file.type}: ${file.name} (${file.size} bytes)`;
+          fileList.appendChild(listItem);
+
+          // Add to table
+          const tableRow = document.createElement('tr');
+          tableRow.innerHTML = `<td>${file.name}</td><td>${file.type}</td><td>${file.size}</td>`;
+          fileTableBody.appendChild(tableRow);
+
+          // Collect data for chart
+          fileNames.push(file.name);
+          fileSizes.push(file.size);
+          fileTypes.push(file.type);
+        });
+
+        // Create pie chart
+        new Chart(fileSizeChartCtx, {
+          type: 'pie',
+          data: {
+            labels: fileNames,
+            datasets: [{
+              label: 'File Size',
+              data: fileSizes,
+              backgroundColor: fileSizes.map(() => `#${Math.floor(Math.random()*16777215).toString(16)}`),
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const label = context.label || '';
+                    const size = context.raw || 0;
+                    return `${label}: ${size} bytes`;
+                  }
+                }
+              }
+            }
+          }
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching files:', error);
+      });
+  </script>
+</body>
+</html>

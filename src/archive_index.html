@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Scanner</title>
+</head>
+<body>
+  <h1>File List</h1>
+  <ul id="fileList"></ul>
+
+  <script>
+    // Fetch files from the API and display them
+    fetch('/api/files')
+      .then(response => response.json())
+      .then(files => {
+        const fileList = document.getElementById('fileList');
+        files.forEach(file => {
+          const listItem = document.createElement('li');
+          listItem.textContent = `${file.type}: ${file.name} (${file.size} bytes)`;
+          fileList.appendChild(listItem);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching files:', error);
+      });
+  </script>
+</body>
+</html>
