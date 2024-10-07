@@ -2,6 +2,23 @@
 const fs = require('fs');
 const path = require('path');
 const { scanDirectory } = require('../src/server'); // Adjust the path as necessary
+const request = require('supertest');
+const app = require('../src/server'); // Adjust the path as needed
+
+let server;
+
+// Setup before all tests are run
+beforeAll((done) => {
+    server = app.listen(3000, () => {
+      console.log('Server running on http://localhost:3000');
+      done();
+    });
+  });
+  
+  // Cleanup after all tests are done
+  afterAll((done) => {
+    server.close(done);
+  });
 
 jest.mock('fs');
 jest.mock('path');
