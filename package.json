@@ -1,0 +1,23 @@
+{
+  "name": "Learning_FileSizeAnalyser",
+  "version": "1.0.0",
+  "description": "Learning project, create a web dashboard indicating file size distribution within a folder, a list of files and sub-folders.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://$GITHUB_PAT@github.com/benedekthomas/Learning_FileSizeAnalyser.git"
+  },
+  "keywords": [],
+  "author": "Benedek Tamas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benedekthomas/Learning_FileSizeAnalyser/issues"
+  },
+  "homepage": "https://github.com/benedekthomas/Learning_FileSizeAnalyser#readme",
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
